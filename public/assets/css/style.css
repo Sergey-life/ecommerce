@@ -2642,7 +2642,7 @@ li.menu-item .nav-label.sale-label::before{
     margin-top: 2px;
 }
 .widget.filter-widget{
-    margin-bottom: 10px;
+    margin-bottom: 50px;
 }
 
 /*product widget style*/

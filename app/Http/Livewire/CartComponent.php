@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Coupon;
+use Carbon\Carbon;
 use Cart;
 use Livewire\Component;
 
@@ -74,7 +75,7 @@ class CartComponent extends Component
          * todo: Запит не повертає купон. Також купон не застосовується.
          */
         $cart = str_replace(',','', Cart::instance('cart')->subtotal());
-        $coupon = Coupon::where('code', $this->couponCode)->where('cart_value', '<=', $cart)->first();
+        $coupon = Coupon::where('code', $this->couponCode)->where('expiry_date', '>=', Carbon::today())->where('cart_value', '<=', $cart)->first();
         if (!$coupon) {
             session()->flash('coupon_message', 'Coupon code is invalid');
             return;

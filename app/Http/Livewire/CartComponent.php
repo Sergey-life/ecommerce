@@ -128,6 +128,11 @@ class CartComponent extends Component
 
     public function setAmountForCheckout()
     {
+        if (!Cart::instance('cart')->count() > 0)
+        {
+            session()->forget('checkout');
+            return;
+        }
         if (session()->has('coupon'))
         {
             session()->put('checkout', [
@@ -159,8 +164,8 @@ class CartComponent extends Component
             {
                 $this->calculateDiscounts();
             }
-            $this->setAmountForCheckout();
         }
+        $this->setAmountForCheckout();
         return view('livewire.cart-component')->layout("layouts.base");
     }
 }
